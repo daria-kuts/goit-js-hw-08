@@ -71,7 +71,7 @@ const a = document.createElement("a")
 const img = document.createElement("img");
 a.classList.add("gallery-link");
 a.href = image.original;
-img.classList.add = ("gallery-image");
+img.classList.add("gallery-image");
 img.src = image.preview;
 img.alt = image.description;
 img.dataset.source = image.original;
@@ -81,3 +81,16 @@ a.append(img);
 listItem.push(li)
 }
 gallery.append(...listItem);
+
+gallery.addEventListener("click", selectImage);
+function selectImage(event) {
+    event.preventDefault();
+    if (event.target.nodeName !== "IMG") {
+    return;
+  }
+    const selectedImage = event.target.dataset.source;
+    const instance = basicLightbox.create(`
+  <img src="${selectedImage}" width="800" height="600">
+`);
+instance.show();
+}
